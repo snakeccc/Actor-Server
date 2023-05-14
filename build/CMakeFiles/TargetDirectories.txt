@@ -1,0 +1,3 @@
+/home/boss/Sunnet/build/CMakeFiles/Sunnet.dir
+/home/boss/Sunnet/build/CMakeFiles/edit_cache.dir
+/home/boss/Sunnet/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -rdynamic CMakeFiles/Sunnet.dir/src/Msg.cpp.o CMakeFiles/Sunnet.dir/src/Service.cpp.o CMakeFiles/Sunnet.dir/src/SocketWorker.cpp.o CMakeFiles/Sunnet.dir/src/Sunnet.cpp.o CMakeFiles/Sunnet.dir/src/Worker.cpp.o CMakeFiles/Sunnet.dir/src/main.cpp.o -o Sunnet 
