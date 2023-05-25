@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
 
 using namespace std;
 class Sunnet;
@@ -16,6 +17,9 @@ cout << "Hello Sunnet"<<endl;
 }
 
 void Sunnet::Start(){
+     //忽略SIGPIPE信号
+     signal(SIGPIPE, SIG_IGN);
+
      inst = this;
      //锁
      pthread_rwlock_init(&servicesLock, NULL);
@@ -298,12 +302,14 @@ int Sunnet::Listen(uint32_t port, uint32_t serviceId) {
 }
 
 void Sunnet::CloseConn(uint32_t fd) {
-//删除conn对象
-bool succ = RemoveConn(fd);
-//关闭套接字
-close(fd);
-//删除epoll对象对套接字的监听（跨线程）
-if(succ) {
-socketWorker->RemoveEvent(fd);
-}
+     //删除conn对象
+     bool succ = RemoveConn(fd);
+     
+     //关闭套接字
+     close(fd);
+
+     //删除epoll对象对套接字的监听（跨线程）
+     if(succ) {
+     socketWorker->RemoveEvent(fd);
+     }
 }

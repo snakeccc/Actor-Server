@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../include/Sunnet.h"
 #include "../include/Worker.h"
+#include <unistd.h>
 using namespace std;
 
 int test(){
@@ -18,13 +19,34 @@ int test(){
   return 0;
 } 
 
+void TestSocketCtrl(){
+  int fd = Sunnet::inst->Listen(8001,1);
+  usleep(15*100000);
+  Sunnet::inst->CloseConn(fd);
+}
+
+void TestEcho() {
+  auto t = make_shared<string>("gateway");
+  uint32_t gateway = Sunnet::inst->NewService(t);
+}
+
+int testConn() {
+    Sunnet::inst->AddConn(1, 1, Conn::TYPE::LISTEN);
+    Sunnet::inst->AddConn(2, 1, Conn::TYPE::CLIENT);
+    Sunnet::inst->RemoveConn(2);
+    cout << Sunnet::inst->GetConn(1).get() << endl;
+    cout << Sunnet::inst->GetConn(2).get() << endl;
+}
 
 
 int main() {
     Sunnet::inst= new Sunnet();
     //new Sunnet();
     Sunnet::inst->Start();
-    test();
+   // test();
+  //TestSocketCtrl();
+  TestEcho();
+
     Sunnet::inst->Wait();
   
 return 0;

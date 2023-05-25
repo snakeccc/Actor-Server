@@ -47,7 +47,19 @@ public:
 
 private:
 
-//取出一条消息
-shared_ptr<BaseMsg> PopMsg();
+    //取出一条消息
+    shared_ptr<BaseMsg> PopMsg();
 
+    //消息处理方法
+    void OnServiceMsg(shared_ptr<ServiceMsg> msg);
+
+    void OnAcceptMsg(shared_ptr<SocketAcceptMsg> msg);
+
+    void OnRWMsg(shared_ptr<SocketRWMsg> msg);
+
+    void OnSocketData(int fd, const char* buff, int len);
+
+    void OnSocketWritable(int fd);
+    
+    void OnSocketClose(int fd);
 };
